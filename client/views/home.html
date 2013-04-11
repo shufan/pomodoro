@@ -1,0 +1,22 @@
+<template name="home">
+  {{#if currentUser}}
+    <!-- if logged in -->
+    {{> loggedIn}}
+  {{else}}
+    {{> loggedOut}}
+  {{/if}}
+</template>
+
+<template name="loggedIn">
+  <p>Hello world.</p>
+</template>
+
+<template name="loggedOut">
+  <h1 class="splash-title">Pomodoro</h1>
+  <form action="" class="user-form">
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button id="login">Log In</button>
+  </form>
+  <a id="signup-link" href="/register">Sign Up for Pomodoro</a>
+</template>

@@ -15,9 +15,16 @@ Template.loggedOut.events({
 
   'click #signup-link': function(e, templ) {
     var signupNav = [
-      {navItem: "<a href=\"/\">\<</a>"},
-      {navItem: "<h1>Create account</h1>"}
-
+      {
+        navItem: "<a href=\"/\">\<</a>",
+        navClass: "navleft"
+      }, {
+        navItem: "<h1>Create account</h1>",
+        navClass: "navtitle"
+      }, {
+        navItem: "",
+        navClass: "navright empty"
+      }
     ]
     Session.set("navInfo", signupNav);
   }

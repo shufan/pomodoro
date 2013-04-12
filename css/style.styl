@@ -15,3 +15,37 @@ h1
 
 input,button
   border: 1px solid black
+
+///////////////////////////
+// NAVIGATION BAR STYLES //
+///////////////////////////
+
+.navbar
+  overflow: hidden
+  margin-bottom: 2em
+  li
+    box-sizing: border-box
+    float: left
+    display: block
+    padding: 1em
+    border: 1px solid black
+    height: 3em
+  .navleft
+    border-left: none
+    width: 15%
+    text-align: center
+    &.empty
+      border-right: none
+  .navtitle
+    width: 70%
+    border-left: none
+    border-right: none
+    h1
+      font-size: 1em
+  .navright
+    border-right: none
+    width: 15%
+    text-align: center
+    &.empty
+      border-left: none
+

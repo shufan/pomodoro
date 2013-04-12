@@ -14,16 +14,19 @@
     box-sizing: border-box
     font-size: 1em
   input
-    display: block 
+    display: block
+    border-bottom: none
+    margin: -2px 0 0 0
+    border-top: 1px solid #ccc
+    &:first-child
+      border-top: 1px solid black 
+    &:last-of-type
+      border-bottom: 1px solid black
+      margin-bottom: 1em
     &:focus
       outline: none
   button
     background-color: white
-  #name
-    border-bottom: none
-  #password
-    margin: -2px 0 1em 0
-    border-top: 1px solid #ccc
 
 #signup-link
   display: block

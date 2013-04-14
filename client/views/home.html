@@ -3,20 +3,34 @@
     <!-- if logged in -->
     {{> loggedIn}}
   {{else}}
-    {{> loggedOut}}
+    {{#if loggingIn}}
+    {{else}}
+      {{> loggedOut}}
+    {{/if}}
   {{/if}}
 </template>
 
+<!-- Home/Task List for Logged In User -->
 <template name="loggedIn">
-  <p>{{currentUser.username}}</p>
+  {{> navbar}}
+  {{> secondary-nav}}
+  <section class="below-secondnav above-actbar">
+
+  </section>
+  {{#if hasActBar}}
+    {{> act-bar}}
+  {{/if}}
 </template>
 
+<!-- Login Page for a Logged Out User -->
 <template name="loggedOut">
-  <h1 class="splash-title">Pomodoro</h1>
-  <form action="" class="user-form">
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
-    <button id="login">Log In</button>
-  </form>
-  <a id="signup-link" href="/register">Sign Up for Pomodoro</a>
+  <section>
+    <h1 class="splash-title">Pomodoro</h1>
+    <form action="" class="user-form">
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <button id="login">Log In</button>
+    </form>
+    <a id="signup-link" href="/register">Sign Up for Pomodoro</a>
+  </section>
 </template>

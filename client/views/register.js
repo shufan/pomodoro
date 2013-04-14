@@ -1,3 +1,25 @@
+Template.register.created = function() {
+  var signupNav = [
+    {
+      navItem: "<i class=\"icon-chevron-left\"></i>",
+      navClass: "navleft"
+    }, {
+      navItem: "<h1>Create account</h1>",
+      navClass: "navtitle"
+    }, {
+      navItem: "",
+      navClass: "navright empty"
+    }
+  ];
+  Session.set("navInfo", signupNav);
+  // setup nav links
+  Template.navbar.events ({
+    'click .navleft': function(e, templ) {
+      Meteor.Router.to('/');            
+    } 
+  });
+}
+
 Template.register.events({
   'click #signup': function(e, templ) {
     e.preventDefault();

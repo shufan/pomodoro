@@ -8,10 +8,35 @@
   {{renderPage}}
 </body>
 
+<!-- Navigation Bar -->
 <template name="navbar">
-  <ul class="navbar">
-    {{#each navInfo}}
-      <li class="{{navClass}}">{{{navItem}}}</li>   
-    {{/each}}
-  </ul>
+  <section class="navbar">
+    <ul>
+      {{#each navInfo}}
+        <li class="{{navClass}}">{{{navItem}}}</li>   
+      {{/each}}
+    </ul>
+  </section>
+</template>
+
+<!-- Secondary Navigation Bar-->
+<template name="secondary-nav">
+  <section class="navbar tasknav below-nav">
+    <ul>
+      {{#each navInfo}}
+        <li class="{{navClass}}">{{{navItem}}}</li>   
+      {{/each}}
+    </ul>
+  </section>
+</template>
+
+<!-- Bottom Action Bar -->
+<template name="act-bar">
+  <section class="navbar actbar">
+    <ul>
+      {{#each navInfo}}
+        <li class="{{navClass}}">{{{navItem}}}</li>
+      {{/each}}
+    </ul>
+  </section>
 </template>

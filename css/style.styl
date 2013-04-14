@@ -16,36 +16,88 @@ h1
 input,button
   border: 1px solid black
 
+section
+  overflow: hidden
+  position: absolute
+  left: 0
+  right: 0
+  &:first-of-type
+    top: 0
+  &:last-of-type
+    bottom: 0
+  &.below-nav
+    top: 3em
+  &.below-secondnav
+    top: 6em
+  &.above-actbar
+    bottom: 3em
+
+.below-nav, .below-secondnav
+  padding-top: 1.25em
+
+.scroll-y 
+  overflow-y: auto
+
 ///////////////////////////
 // NAVIGATION BAR STYLES //
 ///////////////////////////
 
 .navbar
+  &.below-nav
+    li
+      border-top: none
+  padding-top: 0
   overflow: hidden
-  margin-bottom: 2em
-  li
-    box-sizing: border-box
-    float: left
-    display: block
-    padding: 1em
-    border: 1px solid black
-    height: 3em
-  .navleft
-    border-left: none
-    width: 15%
-    text-align: center
-    &.empty
-      border-right: none
-  .navtitle
-    width: 70%
-    border-left: none
-    border-right: none
-    h1
-      font-size: 1em
-  .navright
-    border-right: none
-    width: 15%
-    text-align: center
-    &.empty
+  ul
+    li
+      position: relative
+      box-sizing: border-box
+      float: left
+      display: block
+      padding: 1em
+      border: 1px solid black
       border-left: none
+      height: 3em
+      i
+        position: absolute
+        left: 50%
+        margin-left: -10px
+      &.current
+        background-color: #ccc
+    .navleft
+      border-right: 1px solid black
+      border-left: none
+      width: 15%
+      text-align: center
+      &.empty
+        border-right: none
+    .navtitle
+      width: 70%
+      border-left: none
+      border-right: none
+      h1
+        font-size: 1em
+    .navright
+      border-left: 1px solid black
+      border-right: none
+      width: 15%
+      text-align: center
+      &.empty
+        border-left: none
+
+.actbar
+  li
+    text-align: center
+  bottom: 0
+  .plan-status
+    width: 66.66%
+  .plan-button
+    width: 33.33%
+  .addtask-button
+    width: 100%
+    .icon-plus
+      left: 0
+      position: relative
+  p
+    display: inline
 

@@ -18,6 +18,15 @@ Meteor.Router.add({
     Session.set("homePane", "completed");
     return 'home'
   },
+  '/task/:id': function(id) {
+    Session.set("currentTask", id);
+    return 'task'
+  },
+  '/plan': 'plan',
+  '/timer': function() {
+    Session.set("timerMode", "work");
+    return 'timer'
+  },
   '/register': 'register',
   '/newtask': 'newtask'
 });

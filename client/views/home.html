@@ -15,7 +15,15 @@
   {{> navbar}}
   {{> secondary-nav}}
   <section class="below-secondnav above-actbar">
-
+    {{#if todayActive}}
+      {{> todayList}}
+    {{else}}
+      {{#if tasksActive}}
+        {{>tasksList}}
+      {{else}}
+        {{> completedList}}
+      {{/if}}
+    {{/if}}
   </section>
   {{#if hasActBar}}
     {{> act-bar}}
@@ -33,4 +41,61 @@
     </form>
     <a id="signup-link" href="/register">Sign Up for Pomodoro</a>
   </section>
+</template>
+
+<!-- List of Today's Tasks -->
+<template name="todayList">
+  {{#if empty}}
+    <p class="empty-message">
+      You have no tasks planned for today.
+    </p>
+  {{else}}
+    <ul class="list">
+      {{#each plannedTasks}}
+        <li id="{{task_id}}" class="task-item clearfix">
+          <p class="task-name">{{taskName}}</p>
+          <p class="task-status">{{completed}} of {{planned}}</p>
+          <div class="icon pomodoro"></div>
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
+</template>
+
+<!-- List of Tasks to be Completed -->
+<template name="tasksList">
+  {{#if empty}}
+    <p class="empty-message">
+      You have no tasks to complete.
+    </p>
+  {{else}}
+    <ul class="list">
+      {{#each incompleteTasks}}
+        <li id="{{_id}}" class="task-item clearfix">
+          <p class="task-name">{{name}}</p>
+          <p class="task-status">{{completed}} of {{expected}}</p>
+          <div class="icon pomodoro"></div>
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
+</template>
+
+<!-- List of Completed Tasks -->
+<template name="completedList">
+  {{#if empty}}
+    <p class="empty-message">
+      You have not completed any tasks yet.
+    </p>
+  {{else}}
+    <ul class="list">
+      {{#each completeTasks}}
+        <li id="{{_id}}" class="task-item clearfix">
+          <p class="task-name">{{name}}</p>
+          <p class="task-status">{{completed}} of {{expected}}</p>
+          <div class="icon pomodoro"></div>
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
 </template>

@@ -1,0 +1,34 @@
+<template name="timer">
+  {{> navbar}}
+  <section class="below-nav above-big-actbar">
+    {{#with currentTask}}
+      <section class="name">
+          <p>{{name}}</p>
+      </section>
+    {{/with}}
+    <section class="mode-select navbar">
+      <ul>
+        <li id="work-button">Work</li>
+        <li id="break-button">Break</li>
+      </ul>
+    </section>
+    <section class="timer">
+      {{#if breakTimer}}
+        <p id="timer">00m 05s</p>
+      {{else}}
+        <p id="timer">00m 10s</p>
+      {{/if}}
+    </section>
+  </section>
+  {{> big-actbar}}
+</template>
+
+<template name="big-actbar">
+  <section class="navbar big-actbar">
+    <ul>
+      {{#each actInfo}}
+        <li id="{{actId}}">{{{actItem}}}</li>
+      {{/each}}
+    </ul>
+  </section>
+</template>

@@ -1,0 +1,27 @@
+<template name="newtask">
+  {{> navbar}}
+  {{> taskform}}
+</template>
+
+<template name="taskform">
+  <section class="below-nav">
+    <form action="" class="task-form">
+      <div class="input-prepend">
+        <span class="add-on"><i class="icon-bookmark"></i></span>
+        <input type="text" id="name" placeholder="Name of Task">
+      </div>
+      <div class="input-prepend">
+        <span class="add-on"><i class="icon-tags"></i></span>
+        <input type="text" id="tags" placeholder="Tags (i.e. project, coding)">
+      </div>
+      <div class="clearfix">
+        <input type="text" class="small-input" id="pomodoros-expected">
+        <p>Pomodoros Expected</p>
+      </div>
+      <div class="clearfix">
+        <input type="text" class="small-input" id="pomodoros-completed" value="0">
+        <p>Pomodoros Completed</p>
+      </div>
+    </form>
+  </section>
+</template>

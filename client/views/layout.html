@@ -21,7 +21,7 @@
 
 <!-- Secondary Navigation Bar-->
 <template name="secondary-nav">
-  <section class="navbar tasknav below-nav">
+  <section class="navbar secondnav below-nav">
     <ul>
       {{#each navInfo}}
         <li class="{{navClass}}">{{{navItem}}}</li>   
@@ -35,7 +35,7 @@
   <section class="navbar actbar">
     <ul>
       {{#each navInfo}}
-        <li class="{{navClass}}">{{{navItem}}}</li>
+        <li id="{{navId}}">{{{navItem}}}</li>
       {{/each}}
     </ul>
   </section>

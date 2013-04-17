@@ -1,0 +1,23 @@
+<template name="task">
+  {{> navbar}}  
+  {{> taskinfo}}
+  {{> act-bar}}
+</template>
+
+<template name="taskinfo">
+  {{#with currentTask}}
+    <section class="below-nav above-actbar">
+      <section class="name">
+        <p>{{name}}</p>
+      </section>
+      <section class="tags">
+        <i class="icon-tags"></i>
+        {{#each tags}} 
+          <p>{{this}}</p>
+        {{/each}}
+      </section>
+      <section class="status">
+      </section>
+    </section>
+  {{/with}}
+</template>

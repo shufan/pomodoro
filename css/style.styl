@@ -1,9 +1,26 @@
+//////////////////
+// CUSTOM ICONS //
+//////////////////
+.icon.pomodoro
+  height: 25px
+  width: 25px
+  background-image: url('/img/pomodoro.svg')
+  background-size: 24px 24px
+  background-repeat: no-repeat
+
 ////////////////////
 // GENERAL STYLES //
 ////////////////////
 @import 'nib'
 
 global-reset()
+
+.clearfix:after
+  visibility: hidden
+  display: block
+  content: ""
+  clear: both
+  height: 0
 
 body
   font-family: 'Roboto' sans-serif
@@ -17,7 +34,7 @@ input,button
   border: 1px solid black
 
 section
-  overflow: hidden
+  overflow: auto
   position: absolute
   left: 0
   right: 0
@@ -31,9 +48,16 @@ section
     top: 6em
   &.above-actbar
     bottom: 3em
+  &.above-big-actbar
+    bottom: 6em
 
-.below-nav, .below-secondnav
-  padding-top: 1.25em
+section
+  section
+    position: relative
+    padding: .5em
+    p
+      padding: .1em
+      overflow: hidden
 
 .scroll-y 
   overflow-y: auto
@@ -43,6 +67,7 @@ section
 ///////////////////////////
 
 .navbar
+  height: 48px
   &.below-nav
     li
       border-top: none
@@ -62,25 +87,37 @@ section
         position: absolute
         left: 50%
         margin-left: -10px
+      &:first-child
+        border-left: none
+      &:last-child
+        border-right: none
       &.current
-        background-color: #ccc
+        background-color: #eee
     .navleft
+      position: absolute
+      left: 0px
       border-right: 1px solid black
-      border-left: none
-      width: 15%
+      width: 48px
       text-align: center
       &.empty
         border-right: none
     .navtitle
-      width: 70%
+      white-space: nowrap
+      position: absolute
+      left: 48px
+      right: 48px
       border-left: none
       border-right: none
       h1
+        height: 1.5em
         font-size: 1em
+        overflow: hidden
+        text-overflow: ellipsis
     .navright
+      position: absolute
+      right: 0
       border-left: 1px solid black
-      border-right: none
-      width: 15%
+      width: 48px
       text-align: center
       &.empty
         border-left: none
@@ -89,15 +126,61 @@ section
   li
     text-align: center
   bottom: 0
-  .plan-status
+  #plan-status
     width: 66.66%
-  .plan-button
+  #plan-button, #done-button
     width: 33.33%
-  .addtask-button
+  #addtask-button, #start-button
     width: 100%
-    .icon-plus
+    i
+      margin-left: .25em
       left: 0
+      display: inline-block
       position: relative
   p
     display: inline
 
+/////////////////
+// FORM STYLES //
+/////////////////
+
+form
+  width: 90%
+  margin: 0 auto 10em auto
+  input, button
+    width: 100%
+    padding: .5em .5em .5em .5em
+    box-sizing: border-box
+    font-size: 1em
+    margin-top: .5em
+    &:first-child
+      margin-top: 0
+  input
+    display: block
+    &:focus
+      outline: none
+  button
+    background-color: white
+
+/////////////////////////
+// EMPTY DATASET STYLE //
+/////////////////////////
+
+.empty-message
+  margin-top: 2em
+  text-align: center
+
+//////////////////////////////
+// GLOBAL UI ELEMENT STYLES //
+//////////////////////////////
+.name
+  font-size: 22px
+  background: #eee
+
+.tags
+  margin-bottom: -.5em
+  p
+    display: inline-block
+    background: #eee
+    padding: .1em
+    margin-bottom: .5em

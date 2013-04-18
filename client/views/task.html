@@ -7,8 +7,14 @@
 <template name="taskinfo">
   {{#with currentTask}}
     <section class="below-nav above-actbar">
+      <section class="header">
+        <p class="basic-header">Task</p>
+      </section>
       <section class="name">
         <p>{{name}}</p>
+      </section>
+      <section class="header">
+        <p class="tags-header">Tags</p>
       </section>
       <section class="tags">
         <i class="icon-tags"></i>
@@ -16,7 +22,24 @@
           <p>{{this}}</p>
         {{/each}}
       </section>
-      <section class="status">
+      <section class="header">
+        <p class="status-header">Status</p>
+      </section>
+      <section class="expected-pomodoros">
+        <p class="label">Expected</p>
+        <p class="count">{{expected}}</p>
+        <div class="icon pomodoro"></div>
+      </section>
+      <section class="completed-pomodoros">
+        <p class="label">Completed</p>
+        <p class="count">{{completed}}</p>
+        <div class="icon pomodoro"></div>
+      </section>
+      <section class="header">
+        <p class="history-header">Pomodoro History</p>
+      </section>
+      <section class="pomodoro-history">
+        <p>This feature has yet to be implemented.</p>
       </section>
     </section>
   {{/with}}

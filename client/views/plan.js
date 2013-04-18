@@ -32,7 +32,6 @@ Template.plan.rendered = function() {
   $('.icon-angle-up').hammer().on('tap', function(e) {
     var task_id = $(this).parent().parent().attr('id');
     var numPlannedElement = $('#' + task_id + ' > .planned');
-    console.log(numPlannedElement.html());
     numPlannedElement.html(parseInt(numPlannedElement.html()) + 1);
   });
 

@@ -1,1 +1,27 @@
-
+.header
+  p
+    overflow-x: hidden
+    font-size: 12px
+  border-top: 1px solid black
+  border-bottom: 1px solid black
+  padding: 2px
+  &:first-child
+    border-top: none
+.expected-pomodoros
+  border-bottom: 1px dotted #ccc
+.expected-pomodoros, .completed-pomodoros
+  position: relative
+  .label
+    display: inline-block
+    left: 15px
+    right: 120px
+  .count
+    top: 50%
+    position: absolute
+    right: 2.75em
+    margin-top: -9.5px
+  .icon
+    top: 50%
+    position: absolute
+    right: 1em
+    margin-top: -12.5px

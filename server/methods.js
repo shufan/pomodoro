@@ -38,6 +38,13 @@ Meteor.methods({
     var query = {_id: task_id};
     return Tasks.remove(query);
   },
+  initializeTaskPlans: function(task_id) {
+    return Planned.insert({
+      task_id: task_id,
+      planned: 0,
+      completed: 0
+    });
+  },
   updateTaskPlans: function(task_id, planned, completed) {
     console.log("EDITING TASK PLANS");
     var query = {task_id: task_id};

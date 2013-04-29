@@ -45,5 +45,6 @@ Template.editpomodoro.rendered = function() {
     e.preventDefault();
     var pomodoro_id = Session.get("currentPomodoro");
     Meteor.call("deletePomodoro", pomodoro_id);
+    Meteor.Router.to('/task/' + Session.get("currentTask"));
   })
 }

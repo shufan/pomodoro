@@ -7,7 +7,6 @@ Template.newpomodoro.rendered = function() {
     var date = $('#date').val();
     var time = $('#time').val();
     var location = $('#location').val();
-    console.log("once or twice?");
     if (details != "" && date != "" && time != "" && location != "") {
       var task_id = Session.get("currentTask");
       var task = Tasks.find({"_id": task_id}, {reactive: false}).fetch();
@@ -92,36 +91,28 @@ Template.manualnewpomodoro.rendered = function() {
     var date = $('#date').val();
     var time = $('#time').val();
     var location = $('#location').val();
-    console.log("once or twice?");
     if (details != "" && date != "" && time != "" && location != "") {
       var task_id = Session.get("currentTask");
       var task = Tasks.find({"_id": task_id}, {reactive: false}).fetch();
       // add session information to db
-      var plannedTask = Planned.find({"task_id": task_id}, {reactive: false}).fetch();
-      var completedToday = parseInt(plannedTask[0].completed);
-      var completed = parseInt(task[0].completed);
-      Meteor.call("updateTask", Session.get("currentTask"), undefined, undefined, undefined, completed + 1, undefined, function(err) {
-        Meteor.call("updateTaskPlans", task_id, undefined, completedToday + 1, function(err) {
-          Meteor.call("addPomodoro", task_id, details, date, time, location, function(err) {
-            var timerNav = [
-              {
-                navItem: "<i class=\"icon-remove\"></i>",
-                navClass: "navleft"
-              }, {
-                navItem: "<h1>Pomodoro Timer</h1>",
-                navClass: "navtitle"
-              }, {
-                navItem: "",
-                navClass: "navright empty"
-              }
-            ]
-            Session.set("navInfo", timerNav);
-            Session.set("timerMode", "break");
-            Session.set("autoStart", true);
-            Meteor.defer(function() {
-              Meteor.Router.to('/task/' + Session.get("currentTask"));
-            });
-          });
+      Meteor.call("addPomodoro", task_id, details, date, time, location, function(err) {
+        var timerNav = [
+          {
+            navItem: "<i class=\"icon-remove\"></i>",
+            navClass: "navleft"
+          }, {
+            navItem: "<h1>Pomodoro Timer</h1>",
+            navClass: "navtitle"
+          }, {
+            navItem: "",
+            navClass: "navright empty"
+          }
+        ]
+        Session.set("navInfo", timerNav);
+        Session.set("timerMode", "break");
+        Session.set("autoStart", true);
+        Meteor.defer(function() {
+          Meteor.Router.to('/task/' + Session.get("currentTask"));
         });
       });
     }

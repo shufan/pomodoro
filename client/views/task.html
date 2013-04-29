@@ -38,9 +38,31 @@
       <section class="header">
         <p class="history-header">Pomodoro History</p>
       </section>
-      <section class="pomodoro-history">
-        <p>This feature has yet to be implemented.</p>
-      </section>
+      <div class="pomodoro-history">
+        <section id="add-pomodoro-button">
+          <p><i class="icon-plus"></i> Manually add pomodoro</p>
+        </section>
+        {{#each pomodoros}}
+          {{> pomodoro-item}}
+        {{/each}}
+      </div>
     </section>
   {{/with}}
+</template>
+
+<template name="pomodoro-item">
+  <section id="{{_id}}"class="pomodoro-item">
+    <div class="date">
+      <i class="icon-calendar"></i>
+      <p>{{dateFormat date}}</p>
+    </div>
+    <div class="time">
+      <i class="icon-time"></i>
+      <p>{{timeFormat time}}</p>
+    </div>
+    <div class="location">
+      <i class="icon-map-marker"></i>
+      <p>{{location}}</p>
+    </div>
+  </section>
 </template>

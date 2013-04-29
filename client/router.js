@@ -23,10 +23,23 @@ Meteor.Router.add({
     return 'task'
   },
   '/plan': 'plan',
-  '/timer': function() {
+  '/breaktimer': function() {
+    Session.set("timerMode", "break");
+    return 'timer'
+  },
+  '/worktimer': function() {
     Session.set("timerMode", "work");
     return 'timer'
   },
+  '/timer': function() {
+    return 'timer'
+  },
   '/register': 'register',
-  '/newtask': 'newtask'
+  '/manualnewpomodoro': 'manualnewpomodoro',
+  '/editpomodoro/:id': function(id) {
+    Session.set("currentPomodoro", id);
+    return 'editpomodoro'
+  },
+  '/newtask': 'newtask',
+  '/edittask': 'edittask'
 });

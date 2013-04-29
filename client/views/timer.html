@@ -1,24 +1,29 @@
 <template name="timer">
-  {{> navbar}}
-  <section class="below-nav above-big-actbar">
-    <section class="mode-select navbar">
-      <ul>
-        <li id="work-button">Work</li>
-        <li id="break-button">Break</li>
-      </ul>
+  <span id="timer-elements">
+    {{> navbar}}
+    <section class="below-nav above-big-actbar">
+      <section class="mode-select navbar">
+        <ul>
+          <li id="work-button">Work</li>
+          <li id="break-button">Break</li>
+        </ul>
+      </section>
+      <section class="header timer-context">
+        <p class="timertask-header">Current Task: {{currentTask.name}}</p>
+      </section>
+      <section class="timer">
+        {{#if breakTimer}}
+          <p id="timer">00m 05s</p>
+        {{else}}
+          <p id="timer">00m 10s</p>
+        {{/if}}
+      </section>
     </section>
-    <section class="header timer-context">
-      <p class="timertask-header">Current Task: {{currentTask.name}}</p>
-    </section>
-    <section class="timer">
-      {{#if breakTimer}}
-        <p id="timer">00m 05s</p>
-      {{else}}
-        <p id="timer">00m 10s</p>
-      {{/if}}
-    </section>
-  </section>
-  {{> big-actbar}}
+    {{> big-actbar}}
+  </span>
+  <span id="newpomodoro-elements">
+    {{> newpomodoro}}
+  </span>
 </template>
 
 <template name="big-actbar">

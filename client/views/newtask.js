@@ -1,5 +1,5 @@
 Template.newtask.created = function() {
-  var homeNav = [
+  var taskNav = [
     {
       navItem: "<i class=\"icon-ban-circle\"></i>",
       navClass: "navleft"
@@ -11,28 +11,31 @@ Template.newtask.created = function() {
       navClass: "navright"
     }
   ]
-  Session.set("navInfo", homeNav);
+  Session.set("navInfo", taskNav);
 }
 
 Template.newtask.rendered = function() {
-    // set up tap events
-    $('.navleft').hammer().on('tap', function(e) {
-      Meteor.Router.to('/tasks');
-    });
+  // set up tap events
+  $('.navleft').hammer().on('tap', function(e) {
+    Meteor.Router.to('/tasks');
+  });
 
-    $('.navright').hammer().on('tap', function(e) {
-      e.preventDefault();
-      var name = $('#name').val();
-      var tags = $('#tags').val().split(/[\s,]+/);
-      var expected = parseInt($('#pomodoros-expected').val());
-      var completed = parseInt($('#pomodoros-completed').val());
-      Meteor.call("addTask", name, tags, expected, completed, function(err) {
-        if (err) {
-          // handle add task error
-        } else {
-          Meteor.Router.to('/tasks');
-        }
-      });
-
+  $('.navright').hammer().on('tap', function(e) {
+    e.preventDefault();
+    var name = $('#name').val();
+    var tags = $('#tags').val().split(/[\s,]+/);
+    var expected = parseInt($('#pomodoros-expected').val());
+    var completed = parseInt($('#pomodoros-completed').val());
+    Meteor.call("addTask", name, tags, expected, completed, function(err) {
+      if (err) {
+        // handle add task error
+      } else {
+        Meteor.Router.to('/tasks');
+      }
     });
-  }
+  });
+}
+
+Template.taskform.editing = function() {
+  return $(location).attr("pathname") === "/edittask";
+}

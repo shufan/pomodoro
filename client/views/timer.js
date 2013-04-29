@@ -51,18 +51,62 @@ Template.timer.rendered = function() {
     $('#work-button').addClass("current");
   } else if (Session.equals("timerMode", "break")) {
     $('#break-button').addClass("current");
+    if(Session.equals("autoStart", true)) {
+      Session.set("autoStart", false);
+      startTimer();
+    }
   }
 
-  $('.timer').innerHeight($(window).height() - $('.navbar').innerHeight() - $('.mode-select').innerHeight() - $('.name').innerHeight() - $('.big-actbar').innerHeight());
+  $('.timer').innerHeight($(window).height() - $('.navbar').innerHeight() - $('.mode-select').innerHeight() - $('.name').innerHeight() - $('.big-actbar').innerHeight() - 19);
 
   $('.navleft').hammer().on('tap', function(e) {
-    for (var i = 0; i < timerIDs.length; i++)
-      clearInterval(timerIDs[i]);
-    timerIDs = [];
-    for (var j = 0; j < pauseTimerIDs.length; j++)
-      clearInterval(pauseTimerIDs[j]);
-    pauseTimerIDs = [];
-    Meteor.Router.to('/task/' + Session.get("currentTask"));
+    if ($('#timer-elements').css('visibility') === 'visible') {
+      for (var i = 0; i < timerIDs.length; i++)
+        clearInterval(timerIDs[i]);
+      timerIDs = [];
+      for (var j = 0; j < pauseTimerIDs.length; j++)
+        clearInterval(pauseTimerIDs[j]);
+      pauseTimerIDs = [];
+      Meteor.Router.to('/task/' + Session.get("currentTask"));
+    } else {
+      var details = $('#pomodoro-details').val();
+      var date = $('#date').val();
+      var time = $('#time').val();
+      var location = $('#location').val();
+      //TODO: popup to prevent accidentally discarding pomodoro
+      var timerNav = [
+        {
+          navItem: "<i class=\"icon-remove\"></i>",
+          navClass: "navleft"
+        }, {
+          navItem: "<h1>Pomodoro Timer</h1>",
+          navClass: "navtitle"
+        }, {
+          navItem: "",
+          navClass: "navright empty"
+        }
+      ]
+      Session.set("navInfo", timerNav);
+      var actNav = [
+        {
+          actItem: "<p>Pause (3:00)</p>",
+          actId: "pauseresume-button"
+        }, {
+          actItem: "<p>Start</p>",
+          actId: "startreset-button"
+        }
+      ]
+      Session.set("actInfo", actNav);
+      Session.set("timerMode", "work");
+      resetTimer();
+      Meteor.defer(function() {
+        $('.timer').css('background-color', 'white');
+        $('#newpomodoro-elements').css('visibility', 'hidden');
+        $('#timer-elements').css('visibility', 'visible');
+        $("#startreset-button").hammer().off('tap');
+        $("#startreset-button").hammer().on('tap', startTimer);
+      });
+    }
   });
 
   $('#work-button').hammer().on('tap', function(e) {
@@ -91,27 +135,25 @@ Template.timer.rendered = function() {
 
   $('#stopalarm-button').hammer().on('tap', function(e) {
     var task_id = Session.get("currentTask");
-    var task = Tasks.find({"_id": task_id}, {reactive: false}).fetch();
-    var completed = parseInt(task[0].completed);
     if (Session.equals("timerMode","work")) {
-      Meteor.call("updateTask", Session.get("currentTask"), undefined, undefined, undefined, completed + 1, undefined, function(err) {
-        if (err) {
-          // handle error
-        } else {
-          var plannedTask = Planned.find({"task_id": task_id}, {reactive: false}).fetch();
-          var completedToday = parseInt(plannedTask[0].completed);
-          Meteor.call("updateTaskPlans", task_id, undefined, completedToday + 1);
-          var actNav = [
-            {
-              actItem: "<p>Enjoy Your Break!</p>",
-              actId: "break-message"
-            }
-          ]
-          Session.set("actInfo", actNav);
-          Session.set("timerMode", "break");
-          startTimer();
+      $('#timer-elements').css('visibility', 'hidden');
+      var pomodoroNav = [
+        {
+          navItem: "<i class=\"icon-ban-circle\"></i>",
+          navClass: "navleft"
+        }, {
+          navItem: "<h1>Edit Pomodoro Summary</h1>",
+          navClass: "navtitle"
+        }, {
+          navItem: "<i class=\"icon-ok\"></i>",
+          navClass: "navright"
         }
-      });
+      ]
+      Session.set("navInfo", pomodoroNav);
+      // pre-fill inputs
+      $('#date').val(moment().format('YYYY[-]MM[-]DD'));
+      $('#time').val(moment().format('HH:mm'));
+      $('#newpomodoro-elements').css('visibility', 'visible');
     } else if(Session.equals("timerMode", "break")) {
       var actNav = [
         {
@@ -177,8 +219,6 @@ Template.timer.rendered = function() {
 
   function resetTimer()
   {
-    console.log("timer" + timerIDs);
-    console.log("pause" + pauseTimerIDs);
     if(Session.equals("timerMode","work")) {
       sec = 10;
       min = 00;

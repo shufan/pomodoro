@@ -19,7 +19,6 @@ Template.edittask.rendered = function() {
   $('#name').val(task.name);
   $('#tags').val(task.tags.join(', '));
   $('#pomodoros-expected').val(task.expected);
-  $('#pomodoros-completed').val(task.completed);
   
   $('.navleft').hammer().on('tap', function(e) {
     Meteor.Router.to('/task/' + Session.get("currentTask"));
@@ -31,8 +30,7 @@ Template.edittask.rendered = function() {
     var name = $('#name').val();
     var tags = $('#tags').val().split(/[\s,]+/);
     var expected = parseInt($('#pomodoros-expected').val());
-    var completed = parseInt($('#pomodoros-completed').val());
-    Meteor.call("updateTask", task_id, name, tags, expected, completed, function(err) {
+    Meteor.call("updateTask", task_id, name, tags, expected, function(err) {
       if (err) {
         // handle update task error
       } else {

@@ -69,7 +69,8 @@ Template.plannableTasks.incompleteTasks = function() {
 }
 
 Template.plannableTasks.left = function() {
-  var left = this.expected - this.completed;
+  var completed = Pomodoros.find({"task_id": Session.get("currentTask")}).fetch().length;
+  var left = this.expected - completed;
   if(left < 0) {
     return 0;
   } else {

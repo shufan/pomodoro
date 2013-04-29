@@ -25,8 +25,7 @@ Template.newtask.rendered = function() {
     var name = $('#name').val();
     var tags = $('#tags').val().split(/[\s,]+/);
     var expected = parseInt($('#pomodoros-expected').val());
-    var completed = parseInt($('#pomodoros-completed').val());
-    Meteor.call("addTask", name, tags, expected, completed, function(err) {
+    Meteor.call("addTask", name, tags, expected, function(err) {
       if (err) {
         // handle add task error
       } else {

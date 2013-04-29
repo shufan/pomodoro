@@ -1,12 +1,11 @@
 Meteor.methods({
-  addTask: function(name, tags, expected, completed) {
+  addTask: function(name, tags, expected) {
     console.log("ADDING TASK");
     var task_id = Tasks.insert({
       user: Meteor.user().username,
       name: name,
       tags: tags,
       expected: expected,
-      completed: completed,
       finished: false
     });
     Planned.insert({
@@ -16,7 +15,7 @@ Meteor.methods({
     });
     return task_id;
   },
-  updateTask: function(task_id, name, tags, expected, completed, finished) {
+  updateTask: function(task_id, name, tags, expected, finished) {
     console.log("EDITING TASK INFO");
     var query = {_id: task_id};
     var partialUpdate = {$set: {}};
@@ -28,9 +27,6 @@ Meteor.methods({
     }
     if(expected != undefined) {
       partialUpdate['$set'].expected = expected;
-    }
-    if(completed != undefined) {
-      partialUpdate['$set'].completed = completed;
     }
     if(finished != undefined) {
       partialUpdate['$set'].finished = finished;

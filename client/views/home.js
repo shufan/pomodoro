@@ -209,12 +209,20 @@ Template.tasksList.incompleteTasks = function() {
   return Tasks.find({"finished": false, "user": Meteor.user().username});
 }
 
+Template.tasksList.completed = function() {
+  return Pomodoros.find({"task_id": this._id}).fetch().length;
+}
+
 Template.tasksList.empty = function() {
   return (Tasks.find({"finished": false, "user": Meteor.user().username}).count() === 0);
 }
 
 Template.completedList.completeTasks = function() {
   return Tasks.find({"finished": true, "user": Meteor.user().username});
+}
+
+Template.completedList.completed = function() {
+  return Pomodoros.find({"task_id": this._id}).fetch().length;
 }
 
 Template.completedList.empty = function() {

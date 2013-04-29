@@ -1,0 +1,39 @@
+<template name="newpomodoro">
+  {{> navbar}}
+  {{> pomodoroform}}
+</template>
+
+<template name="manualnewpomodoro">
+  {{> navbar}}
+  {{> pomodoroform}}
+</template>
+
+<template name="pomodoroform">
+  <section class="below-nav">
+    <form class="session-form" action="">
+      <div class="textarea-container">
+        <i class="icon-info-sign"></i>
+        <textarea id="pomodoro-details" rows="5" placeholder="What did you accomplish?"></textarea>
+      </div>
+      <div class="input-container">
+        <i class="icon-calendar"></i>
+        <input name="date" id="date" type="date">
+      </div>
+      <div class="input-container">
+        <i class="icon-time"></i>
+        <input name="time" id="time" type="time">
+      </div>
+      <div class="input-container">
+        <i class="icon-map-marker"></i>
+        <select name="location" id="location">
+          {{#each nearbyLocations}}
+            <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select>
+      </div>
+      {{#if editing}}
+        <button id="delete-button" type="button">Delete Pomodoro</button>
+      {{/if}}
+    </form>
+  </section>
+</template>

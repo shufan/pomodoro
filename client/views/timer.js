@@ -208,11 +208,11 @@ Template.timer.rendered = function() {
   function startTimer()
   {
     if (Session.get("timerMode") === "work") {
-      sec = 10;
-      min = 00;
+      sec = 00;
+      min = 25;
     } else if (Session.get("timerMode") === "break") {
-      sec = 05;
-      min = 00;
+      sec = 00;
+      min = 05;
       var actNav = [
           {
             actItem: "Enjoy Your Break!",
@@ -231,13 +231,13 @@ Template.timer.rendered = function() {
   function resetTimer()
   {
     if(Session.equals("timerMode","work")) {
-      sec = 10;
-      min = 00;
-      $("#timer").html("00:10");
+      sec = 00;
+      min = 25;
+      $("#timer").html("25:00");
     } else {
-      sec = 05;
-      min = 00;
-      $("#timer").html("00:05");
+      sec = 00;
+      min = 05;
+      $("#timer").html("05:00");
     }
     
     pauseSec = 00;

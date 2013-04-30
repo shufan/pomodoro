@@ -1,0 +1,69 @@
+.profile-stats.below-nav
+  background-color: white
+.basic-stats
+  box-shadow: 0px 0px 5px -1px black
+  margin: 20px auto
+  td
+    background-color: white
+    width: 25%
+    font-size: 10px
+    padding: 2px 5px
+    border: solid 1px black;
+    border-right: 0px
+    text-align: center
+    &:last-child
+      border-right: solid 1px black;
+    p
+      font-size: 10px
+  .count
+    font-size: 34px
+    padding: 5px 10px
+    border-bottom: 0px
+.table-container
+  box-shadow: inset 0 0 1px black
+  background-color: #f5f5f5
+  padding: 20px 0
+.graphnav
+  background-color: white
+  padding: 0
+  ul
+    li
+      position: relative
+      box-sizing: border-box
+      float: left
+      display: block
+      box-shadow: inset 0 0 5px #aaa
+      background-color: #ccc
+      width: 50%
+      padding: 1em
+      height: 3em
+      border-left: none
+      &:first-child
+        &.current
+          box-shadow: 1px 0px 8px -3px #000
+      &:last-child
+        &.current
+          box-shadow: -1px 0px 8px -3px #000
+      &.current
+        box-shadow: 1px 0px 5px black
+        background-color: #fff
+        border-bottom: none
+      p
+        margin-top: -2px
+        text-align: center
+
+.chart-container
+  h2
+    margin: 1em auto
+    width: 100%
+    text-align: center
+  svg
+    overflow: visible
+    display: block
+    margin: 1px auto
+    height: auto
+    width: auto
+    font: 10px sans-serif
+    text-align: right
+    color: white
+      

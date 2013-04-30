@@ -2,12 +2,8 @@ Meteor.Router.add({
   // all views are routed to from here
   '/': function() {
     if(Meteor.user()) {
-      Session.setDefault("homePane", "today");
+      Session.setDefault("homePane", "tasks");
     }
-    return 'home'
-  },
-  '/today': function() {
-    Session.set("homePane", "today");
     return 'home'
   },
   '/tasks': function() {
@@ -39,6 +35,10 @@ Meteor.Router.add({
   '/editpomodoro/:id': function(id) {
     Session.set("currentPomodoro", id);
     return 'editpomodoro'
+  },
+  '/profile': function() {
+    Session.setDefault("graphperiod", "7");
+    return'profile'
   },
   '/newtask': 'newtask',
   '/edittask': 'edittask'

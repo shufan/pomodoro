@@ -44,25 +44,9 @@ Deps.autorun(Template.home.created = function() {
   }
   Session.set("actbarNavInfo", actbarNav);
 
-  if (Session.get("homePane") === "today") {
+  if (Session.get("homePane") === "tasks") {
     var secondNav = [
       {
-        navItem: "<h2>Today</h2>",
-        navClass: "today-tab current"
-      }, {
-        navItem: "<h2>Tasks</h2>",
-        navClass: "tasks-tab"
-      }, {
-        navItem: "<h2>Completed</h2>",
-        navClass: "completed-tab"
-      }
-    ];
-  } else if (Session.get("homePane") === "tasks") {
-    var secondNav = [
-      {
-        navItem: "<h2>Today</h2>",
-        navClass: "today-tab"
-      }, {
         navItem: "<h2>Tasks</h2>",
         navClass: "tasks-tab current"
       }, {
@@ -73,9 +57,6 @@ Deps.autorun(Template.home.created = function() {
   } else {
     var secondNav = [
       {
-        navItem: "<h2>Today</h2>",
-        navClass: "today-tab"
-      }, {
         navItem: "<h2>Tasks</h2>",
         navClass: "tasks-tab"
       }, {
@@ -87,9 +68,6 @@ Deps.autorun(Template.home.created = function() {
   Session.set("secondNavInfo", secondNav);
 
   Template['secondary-nav'].events({
-    'click .today-tab': function(e, templ) {
-      Meteor.Router.to('/today');
-    },
     'click .tasks-tab': function(e, templ) {
       Meteor.Router.to('/tasks');
     },
@@ -108,7 +86,8 @@ Template.home.rendered = function() {
 
   $('.navright').hammer().on('tap', function(e) {
     e.preventDefault();
-  });
+    Meteor.Router.to('/profile');
+  })
 }
 
 ////////////////////////////////////////
@@ -134,20 +113,9 @@ Template.loggedOut.events({
 ///////////////////////////////////////
 //loggedIn Template Setup and Helpers//
 ///////////////////////////////////////
-Template.loggedIn.hasActBar = function() {
-  return (Session.get("homePane") === "today" || Session.get("homePane") === "tasks");
-}
-
-Template.loggedIn.todayActive = function() {
-  return Session.get("homePane") === "today";
-}
 
 Template.loggedIn.tasksActive = function() {
   return Session.get("homePane") === "tasks";
-}
-
-Template.loggedIn.completedActive = function() {
-  return Session.get("homePane") === "completed"
 }
 
 Template.loggedIn.rendered = function() {
@@ -164,6 +132,18 @@ Template.loggedIn.rendered = function() {
   $('.task-item').hammer().on('tap', function(e) {
     Meteor.Router.to('/task/' + $(this).attr("id"));
   });
+
+  $('.task-item').hammer().on('hold', function(e) {
+    e.gesture.stopDetect();
+    var task = Tasks.find({'_id': $(this).attr("id")}).fetch()[0];
+    if (!task.finished) {
+      if (!task.today) {
+        Meteor.call("updateTask", task._id, undefined, undefined, undefined, true, undefined);
+      } else {
+        Meteor.call("updateTask", task._id, undefined, undefined, undefined, false, undefined);
+      }
+    }
+  })
 }
 
 //////////////////////////////////////
@@ -180,29 +160,12 @@ Template['act-bar'].navInfo = function() {
 ///////////////////////////////////
 //List Template Setup and Helpers//
 ///////////////////////////////////
-Template.todayList.empty = function() {
-  var tasks = [];
-  Planned.find({"planned": {"$gt": 0}}).forEach(function(task) {
-    if (Tasks.find({"_id": task.task_id}).fetch()[0].user === Meteor.user().username) {
-      tasks.push(task);
-    }
-  });
-  return tasks.length === 0;
+Template.tasksList.today = function() {
+  return this.today;
 }
 
-Template.todayList.plannedTasks = function() {
-  var tasks = [];
-  Planned.find({"planned": {"$gt": 0}}).forEach(function(task) {
-    if (Tasks.find({"_id": task.task_id}).fetch()[0].user === Meteor.user().username) {
-      tasks.push(task);
-    }
-  });
-  return tasks;
-}
-
-Template.todayList.taskName = function() {
-  var task = Tasks.find({"_id": this.task_id}).fetch();
-  return task[0].name;
+Template.tasksList.formatTags = function() {
+  return this.tags.join(', ');
 }
 
 Template.tasksList.incompleteTasks = function() {
@@ -227,4 +190,8 @@ Template.completedList.completed = function() {
 
 Template.completedList.empty = function() {
   return (Tasks.find({"finished": true, "user": Meteor.user().username}).count() === 0);
+}
+
+Template.completedList.formatTags = function() {
+  return this.tags.join(', ');
 }

@@ -22,6 +22,12 @@ global-reset()
   clear: both
   height: 0
 
+button
+  background-color: white
+  border-radius: 0
+  border: none
+  box-shadow: 0px 0px 3px -1px black
+
 body, textarea
   font-family: 'Roboto' sans-serif
 
@@ -30,10 +36,14 @@ h1
   font-size: 2em
   text-align: center
 
-input,button, select
+input,select
   background-color: white
   border-radius: 0
   border: 1px solid black
+
+.input-prepend
+  box-shadow: inset 0 0 5px black
+
 
 section
   overflow: auto
@@ -45,6 +55,7 @@ section
   &:last-of-type
     bottom: 0
   &.below-nav
+    background-color: #f5f5f5
     top: 3em
   &.below-secondnav
     top: 6em
@@ -55,6 +66,7 @@ section
 
 section
   section
+    background-color: white
     position: relative
     padding: .5em
     p
@@ -68,11 +80,16 @@ section
 // NAVIGATION BAR STYLES //
 ///////////////////////////
 
-.navbar
+.navbar  
+  .navleft, .navtitle, .navright
+    background-color: #cb1001
+    color: white
   height: 48px
   &.below-nav
+    background-color: #ccc
     li
-      border-top: none
+      box-shadow: inset 0 0 5px #aaa
+      border: none
   padding-top: 0
   overflow: hidden
   ul
@@ -82,23 +99,26 @@ section
       float: left
       display: block
       padding: 1em
-      border: 1px solid black
-      border-left: none
+      border: none
       height: 3em
       i
         position: absolute
         left: 50%
         margin-left: -10px
       &:first-child
-        border-left: none
+        &.current
+          box-shadow: 1px 0px 8px -3px #000
       &:last-child
-        border-right: none
+        &.current
+          box-shadow: -1px 0px 8px -3px #000
       &.current
-        background-color: #eee
+        box-shadow: 1px 0px 5px black
+        background-color: #fff
+        border-bottom: none
     .navleft
+      border-right: 1px solid #840010
       position: absolute
       left: 0px
-      border-right: 1px solid black
       width: 48px
       text-align: center
       &.empty
@@ -116,22 +136,27 @@ section
         overflow: hidden
         text-overflow: ellipsis
     .navright
+      border-left: 1px solid #840010
       position: absolute
       right: 0
-      border-left: 1px solid black
       width: 48px
       text-align: center
       &.empty
         border-left: none
 
 .actbar
+  box-shadow: 0 -1px 16px -9px #000
   li
-    text-align: center
+    &:first-child
+      border-right: 1px #ddd solid
+    &:last-child
+      text-align: center
   bottom: 0
   #plan-status
     width: 66.66%
   #start-button, #status-button
     width: 50%
+    text-align: center
     i
       margin-left: 5px
       position: relative
@@ -156,6 +181,7 @@ section
 textarea
   resize: none
 form
+  background-color: #f5f5f5
   width: 90%
   margin: 0 auto 0 auto
   input, button, textarea, select

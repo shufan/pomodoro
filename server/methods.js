@@ -6,16 +6,12 @@ Meteor.methods({
       name: name,
       tags: tags,
       expected: expected,
+      today: false, 
       finished: false
-    });
-    Planned.insert({
-      task_id: task_id,
-      planned: 0,
-      completed: 0
     });
     return task_id;
   },
-  updateTask: function(task_id, name, tags, expected, finished) {
+  updateTask: function(task_id, name, tags, expected, today, finished) {
     console.log("EDITING TASK INFO");
     var query = {_id: task_id};
     var partialUpdate = {$set: {}};
@@ -28,6 +24,9 @@ Meteor.methods({
     if(expected != undefined) {
       partialUpdate['$set'].expected = expected;
     }
+    if(today != undefined) {
+      partialUpdate['$set'].today = today;
+    }
     if(finished != undefined) {
       partialUpdate['$set'].finished = finished;
     }
@@ -37,30 +36,6 @@ Meteor.methods({
     console.log("DELETING TASK");
     var query = {_id: task_id};
     return Tasks.remove(query);
-  },
-  initializeTaskPlans: function(task_id) {
-    return Planned.insert({
-      task_id: task_id,
-      planned: 0,
-      completed: 0
-    });
-  },
-  updateTaskPlans: function(task_id, planned, completed) {
-    console.log("EDITING TASK PLANS");
-    var query = {task_id: task_id};
-    var partialUpdate = {$set: {}};
-    if (planned != undefined) {
-      partialUpdate['$set'].planned = planned;
-    }
-    if(completed != undefined) {
-      partialUpdate['$set'].completed = completed;
-    }
-    return Planned.update(query, partialUpdate);
-  },
-  deleteTaskPlans: function(task_id) {
-    console.log("DELETING TASK PLANS");
-    var query = {task_id: task_id};
-    return Planned.remove(query);
   },
   addPomodoro: function(task_id, details, date, time, location) {
     console.log("ADDING POMODORO");

@@ -38,14 +38,14 @@ Template.task.rendered = function() {
     $('#status-button').html('<p>Mark as Incomplete</p><i class=\"icon-check-empty\"></i>')
     $('#status-button').hammer().off('tap');
     $('#status-button').hammer().on('tap', function(e) {
-      Meteor.call("updateTask", Session.get("currentTask"), undefined, undefined, undefined, false);
+      Meteor.call("updateTask", Session.get("currentTask"), undefined, undefined, undefined, undefined, false);
       Meteor.call("initializeTaskPlans", task._id);
     });
   } else {
     $('#status-button').html('<p>Mark as Complete</p><i class=\"icon-check\"></i>')
     $('#status-button').hammer().off('tap');
     $('#status-button').hammer().on('tap', function(e) {
-      Meteor.call("updateTask", Session.get("currentTask"), undefined, undefined, undefined, true);
+      Meteor.call("updateTask", Session.get("currentTask"), undefined, undefined, undefined, undefined, true);
       Meteor.call("deleteTaskPlans", task._id);
     });  
   }

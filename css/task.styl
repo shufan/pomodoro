@@ -1,13 +1,20 @@
+.task-content
+  background-color: #f5f5f5
+  .name
+    box-shadow: inset 1px 2px 7px -5px, 0 6px 16px -14px #000;
+  .tags
+    box-shadow: inset 1px 2px 7px -5px, 0 6px 16px -14px #000; 
 .header
   p
     overflow-x: hidden
     font-size: 12px
-  border-top: 1px solid black
-  border-bottom: 1px solid black
+  background-color: #ccc
+  box-shadow: 0 1px 3px -1px #000
   padding: 2px
   &:first-child
     border-top: none
 .expected-pomodoros
+  box-shadow: inset 1px 2px 7px -5px, 0 6px 16px -14px #000;
   border-bottom: 1px dotted #ccc
 .expected-pomodoros, .completed-pomodoros
   position: relative
@@ -26,7 +33,6 @@
     right: 1em
     margin-top: -12.5px
 .pomodoro-item
-  border-bottom: 1px solid black
   *
     p
       margin-bottom: 0
@@ -44,7 +50,8 @@
     clear: both
     margin-bottom: 0
 #add-pomodoro-button
-  border-bottom: 1px solid
+  background-color: #419f33
+  color: white
   height: 2.5em
   padding: 0
   p
@@ -56,3 +63,10 @@
     margin-top: -9.5px
 .pomodoro-history
   overflow: auto
+  &>*
+    box-shadow: inset 1px 2px 7px -5px
+    &:last-child 
+      box-shadow: inset 1px 2px 7px -5px, 0 6px 16px -14px #000
+// #start-button
+//   background-color: #419f33
+//   color: white

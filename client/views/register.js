@@ -26,7 +26,6 @@ Template.register.events({
     var options = {
       username: $("#username").val(),
       password: $("#password").val(),
-      email: $("#email").val()
     }
     var confirm = $("#confirm").val();
     if (confirm === options.password) {

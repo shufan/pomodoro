@@ -1,0 +1,39 @@
+<template name="profile">
+  {{> navbar}}
+  {{> basicStats}}
+</template>
+
+<template name="basicStats">
+  <section class="below-nav profile-stats">
+    <div class="table-container">
+      <table border="1" class="basic-stats">
+        <tr>
+          <td class="count">{{pomodoroCount "1"}}<p>pomodoros</p></td>
+          <td class="count">{{pomodoroCount "7"}}<p>pomodoros</p></td>
+          <td class="count">{{pomodoroCount "31"}}<p>pomodoros</p></td>
+        </tr>
+        <tr>
+          <td>Last Day</td>
+          <td>Last Week</td>
+          <td>Last Month</td>
+        </tr>
+      </table>
+    </div>
+    <section class="graphnav">
+      {{#if weekmode}}
+        <ul>
+          <li class="week-tab current"><p>Past Week</p></li>
+          <li class="month-tab"><p>Past Month</p></li>
+        </ul>
+      {{else}}
+        <ul>
+          <li class="week-tab"><p>Past Week</p></li>
+          <li class="month-tab current"><p>Past Month</p></li>
+        </ul>
+      {{/if}}
+    </section>
+    <div class="chart-container">
+      <h2># of Pomodoros Completed over Time</h2>
+    </div>
+  </section>
+</template>

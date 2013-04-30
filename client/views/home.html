@@ -14,25 +14,22 @@
 <template name="loggedIn">
   {{> navbar}}
   {{> secondary-nav}}
-  <section class="below-secondnav above-actbar">
-    {{#if todayActive}}
-      {{> todayList}}
-    {{else}}
-      {{#if tasksActive}}
-        {{>tasksList}}
-      {{else}}
-        {{> completedList}}
-      {{/if}}
-    {{/if}}
+  {{#if tasksActive}}
+    <section class="below-secondnav above-actbar task-section">
+        {{> tasksList}}
+  {{else}}
+    <section class="below-secondnav task-section">
+      {{> completedList}}
+  {{/if}}
   </section>
-  {{#if hasActBar}}
+  {{#if tasksActive}}
     {{> act-bar}}
   {{/if}}
 </template>
 
 <!-- Login Page for a Logged Out User -->
 <template name="loggedOut">
-  <section>
+  <section class="splash-screen">
     <h1 class="splash-title">Pomodoro</h1>
     <form action="" class="user-form">
       <input type="text" id="username" placeholder="Username">
@@ -41,25 +38,6 @@
     </form>
     <a id="signup-link" href="/register">Sign Up for Pomodoro</a>
   </section>
-</template>
-
-<!-- List of Today's Tasks -->
-<template name="todayList">
-  {{#if empty}}
-    <p class="empty-message">
-      You have no tasks planned for today.
-    </p>
-  {{else}}
-    <ul class="list">
-      {{#each plannedTasks}}
-        <li id="{{task_id}}" class="task-item clearfix">
-          <p class="task-name">{{taskName}}</p>
-          <p class="task-status">{{completed}} of {{planned}}</p>
-          <div class="icon pomodoro"></div>
-        </li>
-      {{/each}}
-    </ul>
-  {{/if}}
 </template>
 
 <!-- List of Tasks to be Completed -->
@@ -71,11 +49,31 @@
   {{else}}
     <ul class="list">
       {{#each incompleteTasks}}
-        <li id="{{_id}}" class="task-item clearfix">
-          <p class="task-name">{{name}}</p>
-          <p class="task-status">{{completed}} of {{expected}}</p>
-          <div class="icon pomodoro"></div>
-        </li>
+        {{#if today}}
+          <li id="{{_id}}" class="task-item today clearfix">
+            <p class="task-name">{{name}}</p>
+            <p class="task-status">{{completed}} of {{expected}}</p>
+            <div class="icon pomodoro"></div>
+            <div class="tags">
+              <i class="icon-tags"></i>
+              {{#each tags}}
+                <p>{{this}}</p>
+              {{/each}}
+            </div>
+          </li>
+        {{else}}
+          <li id="{{_id}}" class="task-item clearfix">
+            <p class="task-name">{{name}}</p>
+            <p class="task-status">{{completed}} of {{expected}}</p>
+            <div class="icon pomodoro"></div>
+            <div class="tags">
+              <i class="icon-tags"></i>
+              {{#each tags}}
+                <p>{{this}}</p>
+              {{/each}}
+            </div>
+          </li>
+        {{/if}}
       {{/each}}
     </ul>
   {{/if}}
@@ -94,6 +92,12 @@
           <p class="task-name">{{name}}</p>
           <p class="task-status">{{completed}} of {{expected}}</p>
           <div class="icon pomodoro"></div>
+          <div class="tags">
+            <i class="icon-tags"></i>
+            {{#each tags}}
+              <p>{{this}}</p>
+            {{/each}}
+          </div>
         </li>
       {{/each}}
     </ul>

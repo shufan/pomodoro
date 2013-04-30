@@ -13,27 +13,25 @@ Template.newpomodoro.rendered = function() {
       // add session information to db
       var plannedTask = Planned.find({"task_id": task_id}, {reactive: false}).fetch();
       var completedToday = parseInt(plannedTask[0].completed);
-      Meteor.call("updateTaskPlans", task_id, undefined, completedToday + 1, function(err) {
-        Meteor.call("addPomodoro", task_id, details, date, time, location, function(err) {
-          var timerNav = [
-            {
-              navItem: "<i class=\"icon-remove\"></i>",
-              navClass: "navleft"
-            }, {
-              navItem: "<h1>Pomodoro Timer</h1>",
-              navClass: "navtitle"
-            }, {
-              navItem: "",
-              navClass: "navright empty"
-            }
-          ]
-          Session.set("navInfo", timerNav);
-          Session.set("timerMode", "break");
-          Session.set("autoStart", true);
-          Meteor.defer(function() {
-            $('#newpomodoro-elements').css('visibility', 'hidden');
-            $('#timer-elements').css('visibility', 'visible');
-          });
+      Meteor.call("addPomodoro", task_id, details, date, time, location, function(err) {
+        var timerNav = [
+          {
+            navItem: "<i class=\"icon-remove\"></i>",
+            navClass: "navleft"
+          }, {
+            navItem: "<h1>Pomodoro Timer</h1>",
+            navClass: "navtitle"
+          }, {
+            navItem: "",
+            navClass: "navright empty"
+          }
+        ]
+        Session.set("navInfo", timerNav);
+        Session.set("timerMode", "break");
+        Session.set("autoStart", true);
+        Meteor.defer(function() {
+          $('#newpomodoro-elements').css('visibility', 'hidden');
+          $('#timer-elements').css('visibility', 'visible');
         });
       });
     }

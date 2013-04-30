@@ -54,7 +54,7 @@ Template.profile.rendered = function() {
     barWidth = 10.5;
     width = (barWidth + .5) * data.length;
   }
-  var height = 200;
+  var height = 180;
   var x = d3.scale.linear().domain([0, data.length]).range([0, width]);
   var y = d3.scale.linear().domain([0, d3.max(data, function(d) { return d.count; })]).
   rangeRound([0, height]);

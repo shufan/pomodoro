@@ -11,7 +11,7 @@ function pomodorosPerDay(period) {
   var tasks = Tasks.find({user: user}).forEach(function(task) {
     usertasks.push(task._id);
   });
-  var query = {$where: function() { return moment(this.date, 'YYYY[-]MM[-]DD').diff(moment().subtract('days', period), 'days') < period}};
+  var query = {$where: function() { return moment(this.date, 'YYYY[-]MM[-]DD').diff(moment().subtract('days', period), 'days') < period && moment(this.date, 'YYYY[-]MM[-]DD').diff(moment().subtract('days', period), 'days') > 0}};
   var pomodoros = Pomodoros.find(query).forEach(function(pomodoro) {
     if (usertasks.indexOf(pomodoro.task_id) >= 0) {
       if (data[pomodoro.date] == undefined) {

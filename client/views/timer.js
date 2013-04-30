@@ -57,7 +57,7 @@ Template.timer.rendered = function() {
     }
   }
 
-  $('.timer').innerHeight($(window).height() - $('.navbar').innerHeight() - $('.mode-select').innerHeight() - $('.name').innerHeight() - $('.big-actbar').innerHeight() - 19);
+  $('.timer').innerHeight($(window).height() - $('.navbar').innerHeight() - $('.mode-select').innerHeight() - $('.name').innerHeight() - $('.big-actbar').innerHeight() - $('.timer-context').innerHeight());
 
   $('.navleft').hammer().on('tap', function(e) {
     if ($('#timer-elements').css('visibility') === 'visible') {
@@ -134,6 +134,9 @@ Template.timer.rendered = function() {
   });
 
   $('#stopalarm-button').hammer().on('tap', function(e) {
+    var alarm = $('#alarm-sound')[0];
+    alarm.pause();
+    alarm.currentTime = 0;
     var task_id = Session.get("currentTask");
     if (Session.equals("timerMode","work")) {
       $('#timer-elements').css('visibility', 'hidden');
@@ -142,7 +145,7 @@ Template.timer.rendered = function() {
           navItem: "<i class=\"icon-ban-circle\"></i>",
           navClass: "navleft"
         }, {
-          navItem: "<h1>Edit Pomodoro Summary</h1>",
+          navItem: "<h1>New Pomodoro Summary</h1>",
           navClass: "navtitle"
         }, {
           navItem: "<i class=\"icon-ok\"></i>",
@@ -183,13 +186,14 @@ Template.timer.rendered = function() {
       if (min < 10 && String(min).length < 2) min = "0" + min;
       if (sec < 10) sec = "0" + sec;
 
-      $("#timer").html(min+"m " + sec+"s");
+      $("#timer").html(min+":"+sec);
       if(min == 0 && sec == 0) {
         for (var i = 0; i < timerIDs.length; i++) {
           clearInterval(timerIDs[i]);
         }
-        timerIDs = [];      
-        $('.timer').css('background-color','red');
+        timerIDs = [];  
+        var alarm = $('#alarm-sound')[0];
+        alarm.play();
         var actNav = [
           {
             actItem: "Stop Alarm",
@@ -209,6 +213,13 @@ Template.timer.rendered = function() {
     } else if (Session.get("timerMode") === "break") {
       sec = 05;
       min = 00;
+      var actNav = [
+          {
+            actItem: "Enjoy Your Break!",
+            actId: "break-message"
+          }
+        ]
+        Session.set("actInfo", actNav);
     }
     $("#startreset-button").html("<p>Reset</p>");
     $("#startreset-button").hammer().off('tap');
@@ -222,11 +233,11 @@ Template.timer.rendered = function() {
     if(Session.equals("timerMode","work")) {
       sec = 10;
       min = 00;
-      $("#timer").html("00m 10s");
+      $("#timer").html("00:10");
     } else {
       sec = 05;
       min = 00;
-      $("#timer").html("00m 05s");
+      $("#timer").html("00:05");
     }
     
     pauseSec = 00;

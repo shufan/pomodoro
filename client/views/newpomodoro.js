@@ -11,8 +11,6 @@ Template.newpomodoro.rendered = function() {
       var task_id = Session.get("currentTask");
       var task = Tasks.find({"_id": task_id}, {reactive: false}).fetch();
       // add session information to db
-      var plannedTask = Planned.find({"task_id": task_id}, {reactive: false}).fetch();
-      var completedToday = parseInt(plannedTask[0].completed);
       Meteor.call("addPomodoro", task_id, details, date, time, location, function(err) {
         var timerNav = [
           {
@@ -74,6 +72,7 @@ Template.manualnewpomodoro.rendered = function() {
   ]
   Session.set("navInfo", pomodoroNav);
   // pre-fill inputs
+  $('#location').replaceWith('<input name=\"location\" id=\"location\" type=\"text\">');
   $('#date').val(moment().format('YYYY[-]MM[-]DD'));
   $('#time').val(moment().format('HH:mm'));
   $('#newpomodoro-elements').css('visibility', 'visible');

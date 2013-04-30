@@ -13,9 +13,9 @@
       </section>
       <section class="timer">
         {{#if breakTimer}}
-          <p id="timer">00m 05s</p>
+          <p id="timer">00:05</p>
         {{else}}
-          <p id="timer">00m 10s</p>
+          <p id="timer">00:10</p>
         {{/if}}
       </section>
     </section>
@@ -24,6 +24,7 @@
   <span id="newpomodoro-elements">
     {{> newpomodoro}}
   </span>
+  <audio preload loop id="alarm-sound" src="alarm.mp3"></audio>
 </template>
 
 <template name="big-actbar">

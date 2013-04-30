@@ -2,7 +2,8 @@ function pomodorosPerDay(period) {
   //initialize data
   var data = {};
   var dataArray = [];
-  for (var i = period; i > 0; i--) {
+  for (var i = period-1; i >= 0; i--) {
+    console.log(moment().subtract('days', i).format('YYYY[-]MM[-]DD'));
     data[moment().subtract('days', i).format('YYYY[-]MM[-]DD')] = 0;
   }
   var usertasks = [];
@@ -44,7 +45,7 @@ Template.profile.created = function() {
 }
 
 Template.profile.rendered = function() {
-  var data = pomodorosPerDay(Session.get("graphperiod"));
+  var data = pomodorosPerDay(parseInt(Session.get("graphperiod")));
   var barWidth;
   var width;
   if (Session.equals("graphperiod", "7")) {

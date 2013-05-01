@@ -134,9 +134,7 @@ Template.timer.rendered = function() {
   });
 
   $('#stopalarm-button').hammer().on('tap', function(e) {
-    var alarm = $('#alarm-sound')[0];
-    alarm.pause();
-    alarm.currentTime = 0;
+    soundManager.pause('alarm');
     var task_id = Session.get("currentTask");
     if (Session.equals("timerMode","work")) {
       $('#timer-elements').css('visibility', 'hidden');
@@ -192,8 +190,7 @@ Template.timer.rendered = function() {
           clearInterval(timerIDs[i]);
         }
         timerIDs = [];  
-        var alarm = $('#alarm-sound')[0];
-        alarm.play();
+        soundManager.play('alarm');
         var actNav = [
           {
             actItem: "Stop Alarm",

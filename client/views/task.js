@@ -60,7 +60,7 @@ Template.task.rendered = function() {
 
   $('.pomodoro-history').innerHeight($(window).height() - 
     $('.navbar').innerHeight() * 2 - $('.header').innerHeight() * 4 - 
-    $('.name').innerHeight() - $('.tags').innerHeight() - $('.expected-pomodoros').innerHeight() * 2 - 1);
+    $('.name').innerHeight() - $('.tags').innerHeight() - $('.expected-pomodoros').innerHeight() * 2 + 6);
 
   $('#add-pomodoro-button').hammer().on('tap', function(e) {
     Meteor.Router.to('/manualnewpomodoro');

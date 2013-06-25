@@ -33,7 +33,6 @@ Template.task.rendered = function() {
     Meteor.Router.to('/');
   })
 
-  
   if (task.finished) {
     $('#status-button').html('<p>Mark as Incomplete</p><i class=\"icon-check-empty\"></i>')
     $('#status-button').hammer().off('tap');

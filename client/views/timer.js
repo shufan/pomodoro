@@ -190,7 +190,7 @@ Template.timer.rendered = function() {
           clearInterval(timerIDs[i]);
         }
         timerIDs = [];  
-        soundManager.play('alarm');
+        soundManager.play('alarm', {from: 0});
         var actNav = [
           {
             actItem: "Stop Alarm",
@@ -207,9 +207,13 @@ Template.timer.rendered = function() {
     if (Session.get("timerMode") === "work") {
       sec = 00;
       min = 25;
+      soundManager.play('alarm');
+      soundManager.pause('alarm');
     } else if (Session.get("timerMode") === "break") {
       sec = 00;
       min = 05;
+      soundManager.play('alarm');
+      soundManager.pause('alarm');
       var actNav = [
           {
             actItem: "Enjoy Your Break!",
@@ -289,6 +293,8 @@ Template.timer.rendered = function() {
       clearInterval(pauseTimerIDs[j]);
     }
     pauseTimerIDs = [];
+    soundManager.play('alarm');
+    soundManager.pause('alarm');
     timerID = setInterval(countDown, 1000);
     timerIDs.push(timerID);
     $("#pauseresume-button").html("<p>Pause ("+ pauseMin+":"+pauseSec + ")</p>")
